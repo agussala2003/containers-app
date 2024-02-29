@@ -34,7 +34,7 @@ export default function Login({
 
   return (
     <div className="flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
-      <h1 className="flex justify-center my-6 text-xl text-[#1A72DD] font-semibold">INICIAR SESIÓN</h1>
+      <h1 className="flex justify-center my-5 text-xl text-[#1A72DD] font-semibold">Iniciar Sesión</h1>
       <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
         <label className="text-md" htmlFor="email">
          Email
@@ -67,16 +67,17 @@ export default function Login({
          </div>
         <SubmitButton
           formAction={signIn}
-          className="bg-[#1A72DD] rounded-2xl px-4 py-3 text-foreground mb-2 text-[#fff]"
+          className="bg-[#1A72DD] rounded-2xl px-4 py-3 mb-2 text-[#fff]"
           pendingText="Accediendo..."
         >
           Iniciar sesión
         </SubmitButton>
-        {searchParams?.message && (
+        {/* MENSAJE DE ERROR */}
+        {/* {searchParams?.message && (
           <p className="mt-4 p-4 bg-foreground/10 text-foreground text-center">
             {searchParams.message}
           </p>
-        )}
+        )} */}
       </form>
     </div>
   );
