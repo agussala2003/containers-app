@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en" className={inter.className}>
       <body className="bg-background text-foreground">
         <Sidebar />
-        <main className="min-h-screen flex flex-col items-center">
+        <main className="h-full flex flex-col items-center">
           {children}
         </main>
       </body>
