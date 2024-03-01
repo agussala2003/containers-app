@@ -44,6 +44,7 @@ export default function Login({
         <CiUser size={40}  className="rounded-l-lg flex justify-center bg-slate-300 p-2"/>
         </div>
         <input
+          id="email"
           className="rounded-r-lg px-4 py-2 w-full bg-slate-100 focus:outline-none"
           name="email"
           placeholder="you@example.com"
@@ -58,6 +59,7 @@ export default function Login({
         <CiLock size={40} className="rounded-l-lg flex justify-center bg-slate-300 p-2"/>
         </div>
         <input
+          id="password"
           className="rounded-r-lg px-4 py-2 w-full bg-slate-100 focus:outline-none"
           type="password"
           name="password"
