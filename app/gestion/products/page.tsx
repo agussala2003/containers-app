@@ -1,11 +1,11 @@
 import { createClient } from "@/utils/supabase/server";
 import { Product } from "@/utils/models/Product";
 import { redirect } from "next/navigation";
-import ProductCard from "../components/ProductCard";
-import Search from "../components/Search";
-import CategoryFilter from "../components/CategoryFilter";
-import Ordering from "../components/Ordering";
-import Pagination from "../components/Pagination";
+import Search from "@/app/components/Search";
+import CategoryFilter from "@/app/components/CategoryFilter";
+import Ordering from "@/app/components/Ordering";
+import Pagination from "@/app/components/Pagination";
+import ProductTable from "@/app/components/ProductTable";
 
 export default async function ProductsContainer({
   searchParams,
@@ -98,12 +98,8 @@ export default async function ProductsContainer({
         <Search placeholder="Buscar productos" />
         <Ordering />
       </div>
-      <div className="flex flex-row flex-wrap gap-4 mt-4 justify-center w-5/6 mx-auto">
-        {filteredProducts.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-      <Pagination products={productsArray} />
+      {filteredProducts && <ProductTable products={filteredProducts} />}
+      {products && <Pagination products={productsArray} />}
     </div>
   );
 }

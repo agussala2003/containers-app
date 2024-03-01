@@ -46,7 +46,7 @@ export default function Sidebar() {
     const links = [
         { name: 'Inicio', href: '/', icon: <IoHomeOutline size={18}  className='mr-2 mt-0.5'/> },
         { name: 'Productos', href: '/products', icon: <PiShoppingCartSimpleLight size={18}  className='mr-2 mt-0.5'/> },
-        { name: 'Administración', href: '/products/new', icon: <SlSettings size={18}  className='mr-2 mt-0.5'/> },
+        { name: 'Administración', href: '/gestion', icon: <SlSettings size={18}  className='mr-2 mt-0.5'/> },
       ];
     
   return (
@@ -75,7 +75,7 @@ export default function Sidebar() {
               {user && links.map((link) => (
                 <li key={link.name} className="flex flex-row mb-4">
                   {link.icon}
-                  <Link onClick={handleBurguer} href={link.href}>
+                  <Link onClick={handleBurguer} className='hover:underline' href={link.href}>
                     {link.name}
                   </Link>
                 </li>
@@ -83,19 +83,19 @@ export default function Sidebar() {
               {user ? (
                 <li className="flex flex-row justify-start mb-2">
                   <CiUser size={18} className='mr-2 mt-0.5'/>
-                  <Link href={`/account/${user["user"].id}` }  >Mi cuenta</Link>
+                  <Link href={`/account/${user["user"].id}` } className='hover:underline' >Mi cuenta</Link>
                 </li>
               ) : (
                 <li className="flex flex-row mb-2">
                   <CiLogin size={18} className='mr-2 mt-0.5'/>
-                  <Link href="/login">Iniciar Sesion</Link>
+                  <Link className='hover:underline' href="/login">Iniciar Sesion</Link>
                 </li>
               )}
             </ul>
             {business?
             <div className="flex flex-col mb-12 justify-center items-center mt-4">
             <FcBusinessman color='#fff' size={60} className='mb-2'/>
-            <p>{business.business_name} </p>
+            <h3 className='text-xl font-semibold mb-3'>{business.business_name} </h3>
             <p>{business.street_name} {business.street_number}</p>
             <p>{business.phone_number}</p>
             </div>
