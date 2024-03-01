@@ -4,7 +4,17 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Business } from '@/utils/models/Business';
-import BusinessInfo from './BusinessInfo';
+
+import { PiShoppingCartSimpleLight } from "react-icons/pi";
+
+import { IoHomeOutline } from "react-icons/io5";
+import { SlSettings } from "react-icons/sl";
+import { CiUser } from "react-icons/ci";
+import { CiLogin } from "react-icons/ci";
+import { FaRegCircleUser } from "react-icons/fa6";
+
+import { FcBusinessman } from "react-icons/fc";
+import { RxCross2 } from "react-icons/rx";
 
 export default function Sidebar() {
 
@@ -34,52 +44,72 @@ export default function Sidebar() {
   }, [user]);
 
     const links = [
-        { name: 'Inicio', href: '/' },
-        { name: 'Producto', href: '/products' },
-        { name: 'Nuevo producto', href: '/products/new' },
-        { name: 'Categorias', href: '/categories' }
+        { name: 'Inicio', href: '/', icon: <IoHomeOutline size={18}  className='mr-2 mt-0.5'/> },
+        { name: 'Productos', href: '/products', icon: <PiShoppingCartSimpleLight size={18}  className='mr-2 mt-0.5'/> },
+        { name: 'Administración', href: '/products/new', icon: <SlSettings size={18}  className='mr-2 mt-0.5'/> },
       ];
     
   return (
-    <div className="bg-gray-100">
+    <div className= " bg-gray-100 shadow-[0px_2px_3px_rgba(0,0,0,0.1)] mb-3">
       <div className="flex overflow-hidden bg-gray-200">
         <div
           className={clsx(
-            "absolute bg-gray-800 text-white w-56 min-h-screen overflow-y-auto transition-transform transform ease-in-out duration-300 z-10",
+            " fixed h-screen bg-[#1A72DD] text-white w-56 min-h-screen transition-transform transform ease-in-out duration-300 z-10",
             {
               "-translate-x-full": burguer,
             }
           )}
           id="sidebar"
         >
-          <div className="p-4">
-            <h1 className="text-2xl font-semibold">Sidebar</h1>
+          
+          <div className="h-screen p-4">
+            <div className='flex flex-row justify-between items-center'>
+            
+            <h1 className="text-2xl font-semibold">Gestión</h1>  
+            <button onClick={handleBurguer}>
+            <RxCross2 size={28} />
+            </button>
+            </div>
+            <div className="flex flex-col h-full justify-between">
             <ul className="mt-4">
               {user && links.map((link) => (
-                <li key={link.name} className="mb-2">
+                <li key={link.name} className="flex flex-row mb-4">
+                  {link.icon}
                   <Link onClick={handleBurguer} href={link.href}>
                     {link.name}
                   </Link>
                 </li>
               ))}
               {user ? (
-                <li className="mb-2">
-                  <Link href={`/account/${user["user"].id}`}>Mi cuenta</Link>
+                <li className="flex flex-row justify-start mb-2">
+                  <CiUser size={18} className='mr-2 mt-0.5'/>
+                  <Link href={`/account/${user["user"].id}` }  >Mi cuenta</Link>
                 </li>
               ) : (
-                <li className="mb-2">
+                <li className="flex flex-row mb-2">
+                  <CiLogin size={18} className='mr-2 mt-0.5'/>
                   <Link href="/login">Iniciar Sesion</Link>
                 </li>
               )}
             </ul>
-            {business && <BusinessInfo business={business} />}
+            {business?
+            <div className="flex flex-col mb-12 justify-center items-center mt-4">
+            <FcBusinessman color='#fff' size={60} className='mb-2'/>
+            <p>{business.business_name} </p>
+            <p>{business.street_name} {business.street_number}</p>
+            <p>{business.phone_number}</p>
+            </div>
+            :
+            <></>  
+          }
+          </div>
           </div>
         </div>
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="bg-white shadow">
+        <div className="flex-1 flex flex-col overflow-hidden shadow-2xl">
+          <div className="bg-[#fff] ">
             <div className="container mx-auto">
-              <div className="flex justify-between items-center py-4 px-2">
-                <h1 className="text-xl font-semibold">Animated Drawer</h1>
+              <div className="flex w-5/6 m-auto justify-between items-center py-4 px-2">
+                
                 <button
                   onClick={handleBurguer}
                   className="text-gray-500 hover:text-gray-600"
@@ -100,6 +130,11 @@ export default function Sidebar() {
                     ></path>
                   </svg>
                 </button>
+                {business?
+                  <h1 className="text-xl font-semibold">{business.business_name}</h1>
+                :
+                  <h1 className="text-2xl font-semibold">¡Bienvenido!</h1>  
+                }
               </div>
             </div>
           </div>
