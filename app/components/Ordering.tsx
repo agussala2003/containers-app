@@ -18,14 +18,11 @@ export default function Ordering() {
     }
 
     return (
-        <div className="relative">
-            <label htmlFor="category" className="sr-only">
-                Ordenar por
-            </label>
+        <div className="flex flex-1 h-auto justify-center text-center px-2">
             <select
                 id="category"
                 name=''
-                className="block w-full rounded-md border border-gray-200 py-2 pl-3 pr-10 text-sm outline-2"
+                className="block w-full py-2  text-sm outline-none"
                 defaultValue={searchParams.get('category')?.toString()}
                 onChange={(e) => {
                     handleCategoryChange(e.target.value);

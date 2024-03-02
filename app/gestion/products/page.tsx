@@ -6,6 +6,8 @@ import CategoryFilter from "@/app/components/CategoryFilter";
 import Ordering from "@/app/components/Ordering";
 import Pagination from "@/app/components/Pagination";
 import ProductTable from "@/app/components/ProductTable";
+import { IoArrowBack } from "react-icons/io5";
+import Link from "next/link";
 
 export default async function ProductsContainer({
   searchParams,
@@ -91,11 +93,18 @@ export default async function ProductsContainer({
   }
 
   return (
-    <div className="w-5/6 m-auto">
-      <h1 className="text-center text-4xl font-bold">Productos</h1>
-      <div className="w-full h-10 flex flex-row justify-evenly">
+    <div className="w-full m-auto">
+      <div className="w-5/6 mx-auto mt-4 flex flex-row justify-between items-center ">
+        <Link href={`/gestion`}>
+          <div className="flex flex-row justify-center gap-2">
+            <IoArrowBack size={24} /><p>Volver</p>
+          </div>
+        </Link>
+        <button type="button" className="text-white font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 bg-green-600 hover:bg-green-700 focus:ring-green-800">Agregar producto</button>
+      </div>
+      <div className="w-5/6 m-auto h-auto my-5 shadow flex flex-row flex-wrap text-center border border-t-[#D1D1D1]">
+      <Search placeholder="Buscar productos" />
         {categories && <CategoryFilter categories={categories} />}
-        <Search placeholder="Buscar productos" />
         <Ordering />
       </div>
       {filteredProducts && <ProductTable products={filteredProducts} />}

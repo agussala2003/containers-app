@@ -20,14 +20,14 @@ export default function Search({ placeholder }: { placeholder: string }) {
   }
 
   return (
-    <div className="relative flex flex-1 flex-shrink-0">
-      <label htmlFor="search" className="sr-only">
+    <div className="relative px-2 flex flex-shrink-0 w-full border border-x-0 border-t-0 border-b-[#D1D1D1] md:flex-1 md:border-none ">
+      <label htmlFor="search" className="sr-only ">
         Search
       </label>
       <input
         id="search"
         name="search"
-        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+        className="peer block w-full  py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 outline-none"
         placeholder={placeholder}
         onChange={(e) => {
           handleSearch(e.target.value);

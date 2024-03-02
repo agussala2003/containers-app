@@ -50,7 +50,7 @@ export default function Sidebar() {
       ];
     
   return (
-    <div className= " bg-gray-100 shadow-[0px_2px_3px_rgba(0,0,0,0.1)] mb-3">
+    <div className= " bg-gray-100 border border-b-[#D1D1D1] border-x-0 border-t-0">
       <div className="flex overflow-hidden bg-gray-200">
         <div
           className={clsx(
@@ -75,7 +75,7 @@ export default function Sidebar() {
               {user && links.map((link) => (
                 <li key={link.name} className="flex flex-row mb-4">
                   {link.icon}
-                  <Link onClick={handleBurguer} className='hover:underline' href={link.href}>
+                  <Link onClick={handleBurguer} href={link.href} className='hover:underline'>
                     {link.name}
                   </Link>
                 </li>
@@ -88,7 +88,7 @@ export default function Sidebar() {
               ) : (
                 <li className="flex flex-row mb-2">
                   <CiLogin size={18} className='mr-2 mt-0.5'/>
-                  <Link className='hover:underline' href="/login">Iniciar Sesion</Link>
+                  <Link href="/login" className='hover:underline'>Iniciar Sesion</Link>
                 </li>
               )}
             </ul>

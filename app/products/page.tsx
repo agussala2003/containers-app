@@ -91,11 +91,10 @@ export default async function ProductsContainer({
   }
 
   return (
-    <div className="w-5/6 m-auto">
-      <h1 className="text-center text-4xl font-bold">Productos</h1>
-      <div className="w-full h-10 flex flex-row justify-evenly">
+    <div className="w-full ">
+      <div className="w-full h-auto shadow flex flex-row flex-wrap text-center">
+      <Search placeholder="Buscar productos" />
         {categories && <CategoryFilter categories={categories} />}
-        <Search placeholder="Buscar productos" />
         <Ordering />
       </div>
       <div className="flex flex-row flex-wrap gap-4 mt-4 justify-center w-5/6 mx-auto">

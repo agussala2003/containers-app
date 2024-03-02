@@ -19,14 +19,11 @@ export default function CategoryFilter({ categories }: { categories: Category[] 
     }
 
     return (
-        <div className="relative">
-            <label htmlFor="category" className="sr-only">
-                Category
-            </label>
+        <div className="flex flex-1 h-auto border px-2 border-x-[#D1D1D1] border-y-0">
             <select
                 id="category"
                 name='category'
-                className="block w-full rounded-md border border-gray-200 py-2 pl-3 pr-10 text-sm outline-2"
+                className="block w-full  py-2  text-sm outline-none"
                 defaultValue={searchParams.get('category')?.toString()}
                 onChange={(e) => {
                     handleCategoryChange(e.target.value);
