@@ -108,7 +108,9 @@ export default async function ProductsContainer({
         <Ordering />
       </div>
       {filteredProducts && <ProductTable products={filteredProducts} />}
-      {products && <Pagination products={productsArray} />}
+      <div className="w-5/6 mx-auto my-3 flex justify-end ">
+        {products && <Pagination products={productsArray} />}
+      </div>
     </div>
   );
 }

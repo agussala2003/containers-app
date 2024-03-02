@@ -29,21 +29,23 @@ export default function ProductTable({ products }: { products: Product[]}) {
                         <tr key={product.id} className="bg-white border border-b-[#D1D1D1] border-x-0 border-t-0">
                             <td className=" px-6 py-4">
                                 <div className="flex flex-row">
-                                <div >
+                                <div className="w-12 h-12">
                                     <img
                                         src={product.image}
                                         alt={product.product_name}
                                         className="h-12 w-12 rounded-full"
                                     />
                                     </div>
-                                    <div className="flex flex-col justify-center text-start ml-3">
+                                    <div className="flex flex-col justify-center w-auto text-start ml-3">
                                         <p className="text-sm font-semibold">{product.product_name}</p>
                                         <p className= "text-xs text-gray-600 dark:text-gray-400">{product.description}</p>
                                     </div>
                                 </div>
                             </td>
                             <td className="px-6 py-4">
+                                <div className="flex justify-start ">
                                 <p className="font-semibold">${product.price}</p>
+                                </div>
                             </td>
                             <td className="px-6 py-4">
                                 {
