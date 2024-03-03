@@ -24,7 +24,7 @@ export default function FormProductNew () {
     const supabase = createClientComponentClient();
 
     const fetchCategories = async () => {
-        const { data: categories, error } = await supabase.from('categories').select('*');
+        const { data: categories, error } = await supabase.from('categories').select('*').eq('active', true);
         if (error) {
             return redirect('/products?message=Could not fetch categories');
         }
