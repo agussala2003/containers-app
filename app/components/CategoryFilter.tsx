@@ -19,7 +19,7 @@ export default function CategoryFilter({ categories }: { categories: Category[] 
     }
 
     return (
-        <div className="flex flex-1 h-auto border px-2 border-x-[#D1D1D1] border-y-0">
+        <div className="flex flex-1 h-auto border px-2 border-r-[#D1D1D1] border-l-transparent border-y-0 md:border-l-[#D1D1D1]">
             <select
                 id="category"
                 name='category'

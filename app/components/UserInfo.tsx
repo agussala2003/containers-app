@@ -41,27 +41,28 @@ export default function UserInfo() {
     }, [user, business]);
 
     return (
-        <div>
-            <h1>User Info</h1>
+        <div className="flex flex-col items-center">
+            <img src="user_logo.png" alt="User Logo" className="w-20 h-20" />
+            <h1 className="text-2xl font-bold">User Info</h1>
             {isLoading ? (
-                <Loader /> // Render the loader when isLoading is true
+                <Loader />
             ) : (
-                <>
+                <div className="flex flex-col items-center">
                     {user && (
-                        <div>
-                            <p>{user.email}</p>
-                            <p>{user.role}</p>
-                            <p>{user.id}</p>
+                        <div className="mb-4">
+                            <p>Email: {user.email}</p>
+                            <p>Role: {user.role}</p>
+                            <p>ID: {user.id}</p>
                         </div>
                     )}
                     {business && (
-                        <div>
-                            <p>{business.business_name}</p>
-                            <p>{business.street_name}</p>
-                            <p>{business.id}</p>
+                        <div className="mb-4">
+                            <p>Business Name: {business.business_name}</p>
+                            <p>Street Name: {business.street_name}</p>
+                            <p>ID: {business.id}</p>
                         </div>
                     )}
-                </>
+                </div>
             )}
         </div>
     );

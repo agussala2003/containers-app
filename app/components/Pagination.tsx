@@ -44,7 +44,7 @@ export default function Pagination({ products }: { products: Product[] }) {
                             d="M13 5H1m0 0 4 4M1 5l4-4"
                         />
                     </svg>
-                    Previous
+                    Previo
                 </button>
             )}
             {!isLastPage && (
@@ -52,7 +52,7 @@ export default function Pagination({ products }: { products: Product[] }) {
                     onClick={() => handlePagination(currentPage + 1)}
                     className="flex items-center justify-center px-4 h-10 text-base font-medium text-black bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-gray-700 "
                 >
-                    Next
+                    Siguiente
                     <svg
                         className="w-3.5 h-3.5 ms-2 rtl:rotate-180"
                         aria-hidden="true"

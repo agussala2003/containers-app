@@ -5,6 +5,7 @@ export interface Product {
     price: number
     image: string
     active: boolean
+    bought?: number
     created_at?: string
     updated_at?: string
     category_id: number

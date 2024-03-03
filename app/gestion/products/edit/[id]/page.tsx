@@ -14,7 +14,6 @@ export default async function EditProduct () {
     }
     return (
         <div className="w-full">
-            <h1>Editing Product</h1>
             <FormProductEdit />
         </div>
     );

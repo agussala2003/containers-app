@@ -6,6 +6,9 @@ import { z } from 'zod';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { redirect } from 'next/navigation';
 import { Business } from '@/utils/models/Business';
+import { CiImageOn } from "react-icons/ci";
+import CategoryInput from './CategoryInput';
+import { CiCirclePlus } from "react-icons/ci";
 
 export default function FormProductNew () {
     const [productName, setProductName] = useState('');
@@ -13,6 +16,7 @@ export default function FormProductNew () {
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState(0);
     const [imageUrl, setImageUrl] = useState('');
+    const [categoryInput, setCategoryInput] = useState(false);
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [user, setUser] = useState<any>(null);
@@ -94,96 +98,95 @@ export default function FormProductNew () {
     };
 
     return (
-        <>
-            <div className="bg-gray-100 min-h-screen w-full">
-                <header className="bg-white shadow">
-                    <div className="container mx-auto px-4 py-6">
-                        <h1 className="text-2xl font-bold text-gray-800">New Product</h1>
-                    </div>
-                </header>
-                <main className="container mx-auto px-4 py-6">
-                    <form onSubmit={handleSubmit}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="bg-white p-4 shadow rounded-lg">
-                                <h2 className="text-lg font-semibold text-gray-800">Product Information</h2>
-                                <div className="mt-4">
-                                    <label className="block">
-                                        <span className="text-gray-700">Product Name</span>
-                                        <input
-                                            type="text"
-                                            className="form-input mt-1 block w-full"
-                                            placeholder="Enter product name"
-                                            value={productName}
-                                            onChange={(event) => setProductName(event.target.value)}
-                                        />
+        <div className="container mx-auto p-4 text-black">
+            <h1  className="text-2xl font-bold mb-4 sm:text-center">Agregar producto</h1>
+                    <form onSubmit={handleSubmit} className="space-y-4 sm:flex sm:flex-col sm:items-center">
+                           
+                                <div className="flex flex-col">
+                                    <label className="font-medium mb-1">
+                                    Nombre del producto
                                     </label>
+                                    <input
+                                        type="text"
+                                        className="outline-none	border border-gray-300 bg-[#F4F4F4] rounded-xl px-3 py-2 w-full h-12 sm:w-[460px]"
+                                        placeholder="Ingresa nombre del producto"
+                                        value={productName}
+                                        onChange={(event) => setProductName(event.target.value)}
+                                    />
                                 </div>
-                                <div className="mt-4">
-                                    <label className="block">
-                                        <span className="text-gray-700">Description</span>
+                                <div className="flex flex-col">
+                                    <label className="font-medium mb-1">Descripción
+                                        </label>
                                         <textarea
-                                            className="form-textarea mt-1 block w-full"
+                                            className="outline-none border border-gray-300 bg-[#F4F4F4] rounded-xl px-3 py-2 w-full h-20 sm:w-[460px]"
                                             rows={3}
-                                            placeholder="Enter product description"
+                                            placeholder="Ingresa descripción"
                                             value={description}
                                             onChange={(event) => setDescription(event.target.value)}
                                         />
-                                    </label>
                                 </div>
-                                <div className="mt-4">
-                                    <label className="block">
-                                        <span className="text-gray-700">Price</span>
+                                <div className="flex flex-col">
+                                    <label className="block">Precio
+                                        </label>
                                         <input
                                             type="number"
-                                            className="form-input mt-1 block w-full"
-                                            placeholder="Enter product price"
+                                            className="outline-none	 border border-gray-300 bg-[#F4F4F4] rounded-xl px-3 py-2 w-full h-12 sm:w-[460px]"
+                                            placeholder="Ingresa precio"
                                             value={price}
                                             onChange={(event) => setPrice(event.target.value)}
                                         />
-                                    </label>
                                 </div>
-                                <div className="mt-4">
-                                    <label className="block">
-                                        <span className="text-gray-700">Category</span>
+                                <div className="flex flex-col relative">
+                                    <label className="flex flex-row gap-3 font-medium mb-1">
+                                        Categoría
+                                        <CiCirclePlus onClick={() => setCategoryInput(!categoryInput)} className="cursor-pointer h-6 w-6 text-blue-500" />
+                                        </label>
+                                        {categoryInput && <CategoryInput />}
                                         <select
-                                            className="form-select mt-1 block w-full"
+                                            className="outline-none	 border border-gray-300 bg-[#F4F4F4] rounded-xl px-3 py-2 w-full h-12 sm:w-[460px]"
                                             value={category}
                                             onChange={(event) => setCategory(parseInt(event.target.value))}
                                         >
-                                            <option value="">Select a category</option>
+                                            <option value="">Selecciona una categoría</option>
                                             {categories.map((category) => (
                                                 <option key={category.id} value={category.id}>
                                                     {category.category}
                                                 </option>
                                             ))}
                                         </select>
-                                    </label>
                                 </div>
-                                <div className="mt-4">
-                                    <label className="block">
-                                        <span className="text-gray-700">Image URL</span>
+                                <div>
+                                    <label className="flex justify-between items-end text-end font-medium mb-1 "><p>Imagen del producto</p>
+                                        </label>
+                                    <div className='flex flex-row w-full justify-center h-12'>
+
+                                       <div className='flex flex-col justify-center '>
+                                            {imageUrl?
+                                            <img src={imageUrl} alt="Product Image" className="h-full w-12 rounded-l-md" />
+                                              :
+                                            <CiImageOn className="h-full w-12 rounded-l-md bg-[#F4F4F4] " />   
+                                            }            
+                                            </div>
                                         <input
                                             type="text"
-                                            className="form-input mt-1 block w-full"
-                                            placeholder="Enter image URL"
+                                            className="outline-none	 border border-gray-300 bg-[#F4F4F4] rounded-r-xl px-3 py-2 w-full sm:w-[412px]"
+                                            placeholder="Ingresa URL de la imagen del producto"
                                             value={imageUrl}
                                             onChange={(event) => setImageUrl(event.target.value)}
                                         />
-                                    </label>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="mt-4">
+                                    </div>
+                            
+                        
+                        <div className="flex justify-center sm:justify-start">
                             <button
                                 onClick={handleSubmit}
-                                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                                className="w-full my-4 text-white font-medium rounded-md text-sm  py-2.5 text-center  bg-green-600 hover:bg-green-700 focus:ring-green-800 sm:w-36"
                             >
-                                Save
+                                Agregar
                             </button>
                         </div>
                     </form>
-                </main>
-            </div>
-        </>
-    )
-}
+        </div>
+    
+    )}

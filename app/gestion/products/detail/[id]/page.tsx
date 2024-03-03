@@ -1,8 +1,8 @@
-import FormProductNew from "@/app/components/FormProductNew";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import ProductDetail from "@/app/components/ProductDetail";
 
-export default async function NewProduct () {
+export default async function EditProduct () {
     const supabase = createClient();
 
     const {
@@ -14,7 +14,7 @@ export default async function NewProduct () {
     }
     return (
         <div className="w-full">
-            <FormProductNew />
+            <ProductDetail />
         </div>
     );
 } 
