@@ -15,7 +15,7 @@ export default async function AccountPage() {
     }
 
     return (
-        <div>
+        <div className="md:w-2/3 mt-4">
             <UserInfo />
             <AuthButton />
         </div>

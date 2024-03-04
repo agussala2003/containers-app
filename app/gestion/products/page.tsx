@@ -9,6 +9,7 @@ import Pagination from "@/app/components/Pagination";
 import ProductTable from "@/app/components/ProductTable";
 import DeletedFilter from "@/app/components/DeletedFilter";
 import Link from "next/link";
+import EmptyMessage from "@/app/components/EmptyMessage";
 
 export default async function ProductsContainer({
   searchParams,
@@ -115,7 +116,17 @@ export default async function ProductsContainer({
         {categories && <CategoryFilter categories={categories} />}
         <Ordering />
       </div>
-      {filteredProducts && <ProductTable products={filteredProducts} />}
+      {filteredProducts.length > 0 ? 
+      <>
+        <ProductTable products={filteredProducts} />
+      </>
+      :
+      <div className="w-full my-10 flex flex-col justify-center items-center ">
+
+        <EmptyMessage />
+     
+      </div>
+      } 
       <div className="w-5/6 mx-auto my-3 flex justify-between items-center">
         <DeletedFilter />
         {products && <Pagination products={productsArray} />}

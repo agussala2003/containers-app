@@ -7,6 +7,7 @@ import CategoryFilter from "../components/CategoryFilter";
 import Ordering from "../components/Ordering";
 import Pagination from "../components/Pagination";
 import OrderDetails from "../components/OrderDetails";
+import EmptyMessage from "../components/EmptyMessage";
 
 export default async function ProductsContainer({
   searchParams,
@@ -43,7 +44,7 @@ export default async function ProductsContainer({
   const productsQuery = supabase
     .from("products")
     .select("*")
-    .eq("active", true)
+    .eq("active", true);
 
   const { data: products } = await productsQuery;
   const productsArray = products || [];
@@ -94,19 +95,30 @@ export default async function ProductsContainer({
   }
 
   return (
-    <div className="w-full ">
-      <div className="w-full h-auto shadow flex flex-row flex-wrap text-center">
-      <Search placeholder="Buscar productos" />
-        {categories && <CategoryFilter categories={categories} />}
-        <Ordering />
-      </div>
-      <div className="flex flex-row flex-wrap gap-4 mt-4 justify-center w-5/6 mx-auto">
-        {filteredProducts.map((product: Product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
-      {addedId && <OrderDetails addedId={addedId} />}
-      <Pagination products={productsArray} />
-    </div>
+    <>
+
+          <div className="w-full h-auto shadow flex flex-row flex-wrap text-center">
+            <Search placeholder="Buscar productos" />
+            {categories && <CategoryFilter categories={categories} />}
+            <Ordering />
+          </div>
+      {filteredProducts.length > 0 ? (
+        <div className="w-full ">
+          <div className="flex flex-row flex-wrap gap-4 mt-4 justify-center w-5/6 mx-auto">
+            {filteredProducts.map((product: Product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+          {addedId && <OrderDetails addedId={addedId} />}
+          <Pagination products={productsArray} />
+        </div>
+      ) : (
+        <div className="w-full h-[calc(100vh-137px)] flex flex-col justify-center items-center md:h-[calc(100vh-103px)]">
+
+          <EmptyMessage />
+        </div>
+      )}
+
+    </>
   );
 }

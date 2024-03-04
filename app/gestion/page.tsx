@@ -1,29 +1,28 @@
 import Link from "next/link";
 
 export default async function GestionPage() {
+
+
+    const links = [
+        { name: 'Productos', href:'/gestion/products', description:'Administra los productos disponibles'},
+        { name: 'Categorías', href: '/gestion/categories',description:'Administra las categorías de productos' },
+        { name: 'Órdenes', href: '/gestion/orders', description:'Administra las órdenes de compra'},   
+      ];
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <h1 className="text-4xl font-bold mb-4">Bienvenido</h1>
-            <p className="text-lg mb-8">Por favor, selecciona uno de los siguientes módulos:</p>
-            <div className="grid grid-cols-3 gap-4">
-                <Link href={'/gestion/products'}>
-                    <div className="bg-blue-500 text-white p-4 rounded-lg">
-                        <h2 className="text-xl font-bold mb-2">Productos</h2>
-                        <p>Administra los productos disponibles</p>
-                    </div>
-                </Link>
-                <Link href={'/gestion/categories'}>
-                    <div className="bg-green-500 text-white p-4 rounded-lg">
-                        <h2 className="text-xl font-bold mb-2">Categorías</h2>
-                        <p>Administra las categorías de productos</p>
-                    </div>
-                </Link>
-                <Link href={'/gestion/orders'}>
-                    <div className="bg-yellow-500 text-white p-4 rounded-lg">
-                        <h2 className="text-xl font-bold mb-2">Órdenes</h2>
-                        <p>Administra las órdenes de compra</p>
-                    </div>
-                </Link>
+        <div className="flex flex-col items-center justify-center h-full w-full pb-4 sm:h-[calc(100vh-65px)]">
+
+            <h2 className="font-semibold text-2xl text-center py-4 mx-2">Selecciona uno de los siguientes módulos:</h2>
+            <div className="flex flex-row flex-wrap justify-center gap-5 mt-3">
+                {links.map((link) => (
+                        <Link href={link.href} className='w-72 flex flex-row justify-between items-center mx-4'>
+                            <div key={link.name} className="w-full bg-blue-500 text-white p-4 rounded-lg ">
+                             <h2 className="text-lg font-bold">{link.name}</h2>
+                             <p>{link.description}</p>
+                            </div>
+                        </Link>
+                
+                ))}
+                
             </div>
         </div>
     );
