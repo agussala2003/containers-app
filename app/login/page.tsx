@@ -33,9 +33,9 @@ export default function Login({
   };
 
   return (
-    <div className="flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
+    <div className="flex flex-col w-full h-[calc(100vh-65px)] px-8 sm:max-w-md justify-center gap-2">
       <h1 className="flex justify-center my-5 text-xl text-[#1A72DD] font-semibold">Iniciar Sesión</h1>
-      <form className="animate-in flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+      <form className="animate-in flex flex-col w-full justify-center gap-2 text-foreground">
         <label className="text-md" htmlFor="email">
          Email
         </label>

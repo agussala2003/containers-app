@@ -6,6 +6,7 @@ import Search from "../components/Search";
 import CategoryFilter from "../components/CategoryFilter";
 import Ordering from "../components/Ordering";
 import Pagination from "../components/Pagination";
+import OrderDetails from "../components/OrderDetails";
 
 export default async function ProductsContainer({
   searchParams,
@@ -15,12 +16,14 @@ export default async function ProductsContainer({
     category?: string;
     order?: string;
     page?: string;
+    addedId?: string;
   };
 }) {
   const query = searchParams?.query || "";
   const category = searchParams?.category || "";
   const page = Number(searchParams?.page) || 1;
   const order = searchParams?.order || "";
+  const addedId = searchParams?.addedId || "";
 
   const supabase = createClient();
 
@@ -102,6 +105,7 @@ export default async function ProductsContainer({
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
+      {addedId && <OrderDetails addedId={addedId} />}
       <Pagination products={productsArray} />
     </div>
   );

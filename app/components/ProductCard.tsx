@@ -1,5 +1,5 @@
 import { Product } from "@/utils/models/Product";
-import { GoPlus } from "react-icons/go";
+import AddBtn from "./AddBtn";
 
 export default function ProductCard({ product }: { product: Product }) {
     return (
@@ -21,9 +21,7 @@ export default function ProductCard({ product }: { product: Product }) {
                     <p className="text-sm font-medium text-[#1A72DD]">
                         ${product.price}
                     </p>
-                    <button className="flex justify-center align-middle bg-[#1A72DD] p-1 rounded-md">
-                        <GoPlus color="#fff" />
-                    </button>
+                    {product && <AddBtn id={product.id} />}
                 </div>
             </div>
         </div>

@@ -16,8 +16,8 @@ export default async function AccountPage() {
 
     return (
         <div>
-            <AuthButton />
             <UserInfo />
+            <AuthButton />
         </div>
     );
 }

@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Business } from '@/utils/models/Business';
 import Loader from './Loader';
+import { FaUserCircle } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io"; 
+import Link from 'next/link';
 
 export default function UserInfo() {
     const supabase = createClientComponentClient();
@@ -42,26 +45,37 @@ export default function UserInfo() {
 
     return (
         <div className="flex flex-col items-center">
-            <img src="user_logo.png" alt="User Logo" className="w-20 h-20" />
-            <h1 className="text-2xl font-bold">User Info</h1>
+            <div className='flex flex-row mt-4 gap-2'>
+            <FaUserCircle  color='#5F605F' size={60} className='mb-2'/>
+            {business && (
+                        <div className="mb-4">
+                            <p>{business.business_name}</p>
+                            <p>{business.street_name}</p>
+                            <p>{business.phone_number}</p>
+                        </div>
+                    )}
+            </div>
+            
             {isLoading ? (
                 <Loader />
             ) : (
                 <div className="flex flex-col items-center">
-                    {user && (
-                        <div className="mb-4">
-                            <p>Email: {user.email}</p>
-                            <p>Role: {user.role}</p>
-                            <p>ID: {user.id}</p>
+        
+                    
+                    <div className='w-full flex flex-col '>  
+                        <div className='flex flex-row justify-between items-center py-3 border-b border-b-[#BDBDBD]'>
+                        <Link href="">Gestión productos</Link>
+                        <IoIosArrowForward />
                         </div>
-                    )}
-                    {business && (
-                        <div className="mb-4">
-                            <p>Business Name: {business.business_name}</p>
-                            <p>Street Name: {business.street_name}</p>
-                            <p>ID: {business.id}</p>
+                        <div className='flex flex-row justify-between items-center py-3 border-b border-b-[#BDBDBD]'>
+                            <Link href="">Gestión categorías</Link>
+                            <IoIosArrowForward />
                         </div>
-                    )}
+                        <div className='flex flex-row justify-between items-center py-3 border-b border-b-[#BDBDBD]'>
+                            <Link href="">Gestión Ordenes</Link>
+                            <IoIosArrowForward />
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
