@@ -27,7 +27,7 @@ export default function ActivateButton({ id }: { id: number | undefined }) {
     function getTableNameFromPathname(pathname: string): string | null {
         const parts = pathname.split("/");
         const lastPart = parts[parts.length - 1];
-        if (lastPart === "products" || lastPart === "categories") {
+        if (lastPart === "products" || lastPart === "categories" || lastPart === "orders") {
             return lastPart;
         }
         return null;
