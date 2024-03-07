@@ -6,7 +6,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 
 export default function OrdersTable({ orders }: { orders: Order[] }) {
   return (
-    <div className="w-5/6 flex flex-col items-center justify-between bg-white shadow-md mb-3">
+    <div className="w-5/6 flex flex-col items-center justify-between bg-white shadow-md mb-3 mx-auto">
       <div className="w-full md:flex md:justify-center md:text-center relative overflow-x-auto">
         <table className="table-auto w-full text-sm text-left rtl:text-right text-gray-500 bg-white shadow-md  border border-[#D1D1D1]">
           <thead className="text-xs text-black uppercase bg-white ">

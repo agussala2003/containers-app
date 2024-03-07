@@ -27,7 +27,7 @@ export default function ProductTable({ products }: { products: Product[]}) {
                 </thead>
                 <tbody>
                     {products && products.map((product) => (
-                        <tr key={product.id} className="bg-white border border-b-[#D1D1D1] border-x-0 border-t-0">
+                        <tr key={product.id} className="bg-white border-b border-b-[#D1D1D1] ">
                             <td className=" px-6 py-4">
                                 <div className="flex flex-row">
                                 <div className="w-12 h-12">

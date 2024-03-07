@@ -59,7 +59,7 @@ export default async function CategoriesContainer({
 
   return (
     <div className="flex flex-col space-y-4 mt-3 w-full mb-3 md:items-center">
-      <div className="flex items-center justify-between mx-2 my-3 py-2 md:w-5/6 ">
+      <div className="w-5/6 mx-auto mt-4 flex flex-row justify-between items-center  ">
         <Link href={`/gestion`}>
           <div className="flex flex-row justify-center gap-2">
             <IoArrowBack size={24} />
