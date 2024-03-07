@@ -95,7 +95,7 @@ export default function Sidebar() {
             {business?
             <div className="flex flex-col mb-12 justify-center items-center mt-4">
             <FcBusinessman color='#fff' size={60} className='mb-2'/>
-            <h3 className='text-xl font-semibold mb-3'>{business.business_name} </h3>
+            <h3 className='text-xl font-semibold mb-3 text-center'>{business.business_name} </h3>
             <p>{business.street_name} {business.street_number}</p>
             <p>{business.phone_number}</p>
             </div>

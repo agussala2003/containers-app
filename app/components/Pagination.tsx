@@ -1,14 +1,13 @@
 "use client";
-import { Product } from '@/utils/models/Product';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-export default function Pagination({ products }: { products: Product[] }) {
+export default function Pagination({ items }: { items: any[] }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
 
     const itemsPerPage = 5;
-    const totalPages = Math.ceil(products.length / itemsPerPage);
+    const totalPages = Math.ceil(items.length / itemsPerPage);
 
     function handlePagination(page: any) {
         const params = new URLSearchParams(searchParams);

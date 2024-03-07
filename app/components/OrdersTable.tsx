@@ -1,6 +1,5 @@
 import { Order } from "@/utils/models/Order";
 import Link from "next/link";
-import { CiEdit } from "react-icons/ci";
 import DeleteButton from "./DeleteButton";
 import ActivateButton from "./ActivateButton";
 import { IoIosInformationCircleOutline } from "react-icons/io";

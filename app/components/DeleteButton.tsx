@@ -14,6 +14,8 @@ export default function DeleteButton({id}: {id: number | undefined}) {
             return;
         }
 
+        console.log(tableName)
+
         const { data, error } = await supabase
             .from(tableName)
             .update({ active: false })

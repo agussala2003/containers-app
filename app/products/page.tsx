@@ -36,20 +36,31 @@ export default async function ProductsContainer({
     return redirect("/login");
   }
 
+  const { data: business } = await supabase.from("business").select("*").eq("user_id", user.id);
+
   const { data: categories } = await supabase
     .from("categories")
     .select("*")
     .eq("active", true);
 
-  const productsQuery = supabase
-    .from("products")
-    .select("*")
-    .eq("active", true);
+  let productsQuery: any;
 
-  const { data: products } = await productsQuery;
+  if (business) {
+    productsQuery = supabase
+      .from("products")
+      .select("*")
+      .eq("business_id", business[0].id);
+  }
+
+  const { data: products } = await productsQuery.eq("active", true);
   const productsArray = products || [];
 
   let filteredProducts = productsArray;
+
+  // Sort Prodcuts by bought
+  filteredProducts = filteredProducts.sort(
+    (a: Product, b: Product) => (b.bought ?? 0) - (a.bought ?? 0)
+  );
 
   if (query) {
     filteredProducts = filteredProducts.filter((product: Product) =>
@@ -89,10 +100,12 @@ export default async function ProductsContainer({
   }
 
   if (page) {
+    console.log(business)
     const start = (page - 1) * 5;
     const end = start + 5;
     filteredProducts = filteredProducts.slice(start, end);
   }
+
 
   return (
     <>
@@ -110,7 +123,7 @@ export default async function ProductsContainer({
             ))}
           </div>
           {addedId && <OrderDetails addedId={addedId} />}
-          <Pagination products={productsArray} />
+          <Pagination items={productsArray} />
         </div>
       ) : (
         <div className="w-full h-[calc(100vh-137px)] flex flex-col justify-center items-center md:h-[calc(100vh-103px)]">

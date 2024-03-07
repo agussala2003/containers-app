@@ -38,14 +38,21 @@ export default async function ProductsContainer({
     return redirect("/login");
   }
 
+  const { data: business } = await supabase.from("business").select("*").eq("user_id", user.id);
+
   const { data: categories } = await supabase
     .from("categories")
     .select("*")
     .eq("active", true);
 
-  let productsQuery = supabase
-    .from("products")
-    .select("*");
+    let productsQuery: any;
+
+    if (business) {
+      productsQuery = supabase
+        .from("products")
+        .select("*")
+        .eq("business_id", business[0].id);
+    }
 
   if (isDeletedProducts) {
     productsQuery = productsQuery.eq("active", false);
@@ -129,7 +136,7 @@ export default async function ProductsContainer({
       } 
       <div className="w-5/6 mx-auto my-3 flex justify-between items-center">
         <DeletedFilter />
-        {products && <Pagination products={productsArray} />}
+        {products && <Pagination items={productsArray} />}
       </div>
     </div>
   );
