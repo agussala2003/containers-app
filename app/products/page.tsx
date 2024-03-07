@@ -36,7 +36,10 @@ export default async function ProductsContainer({
     return redirect("/login");
   }
 
-  const { data: business } = await supabase.from("business").select("*").eq("user_id", user.id);
+  const { data: business } = await supabase
+    .from("business")
+    .select("*")
+    .eq("user_id", user.id);
 
   const { data: categories } = await supabase
     .from("categories")
@@ -100,38 +103,36 @@ export default async function ProductsContainer({
   }
 
   if (page) {
-    console.log(business)
+    console.log(business);
     const start = (page - 1) * 5;
     const end = start + 5;
     filteredProducts = filteredProducts.slice(start, end);
   }
 
-
   return (
     <>
-
-          <div className="w-full h-auto shadow flex flex-row flex-wrap text-center">
-            <Search placeholder="Buscar productos" />
-            {categories && <CategoryFilter categories={categories} />}
-            <Ordering />
-          </div>
+      <div className="w-full h-auto shadow flex flex-row flex-wrap text-center">
+        <Search placeholder="Buscar productos" />
+        {categories && <CategoryFilter categories={categories} />}
+        <Ordering />
+      </div>
       {filteredProducts.length > 0 ? (
-        <div className="w-full ">
+        <div className="w-full mt-5">
           <div className="flex flex-row flex-wrap gap-4 mt-4 justify-center w-5/6 mx-auto">
             {filteredProducts.map((product: Product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
           {addedId && <OrderDetails addedId={addedId} />}
-          <Pagination items={productsArray} />
+          <div className="my-5 w-5/6 mx-auto ">
+            <Pagination items={productsArray} />
+          </div>
         </div>
       ) : (
         <div className="w-full h-[calc(100vh-137px)] flex flex-col justify-center items-center md:h-[calc(100vh-103px)]">
-
           <EmptyMessage />
         </div>
       )}
-
     </>
   );
 }

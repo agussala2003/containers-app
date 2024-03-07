@@ -28,7 +28,10 @@ export default async function CategoriesContainer({
     return redirect("/login");
   }
 
-  const { data: business } = await supabase.from("business").select("*").eq("user_id", user.id);
+  const { data: business } = await supabase
+    .from("business")
+    .select("*")
+    .eq("user_id", user.id);
 
   let ordersQuery: any;
 
@@ -44,7 +47,7 @@ export default async function CategoriesContainer({
   } else {
     ordersQuery = ordersQuery.eq("active", true);
   }
-  
+
   const { data: orders } = await ordersQuery;
   const ordersArray = orders || [];
 
@@ -55,7 +58,6 @@ export default async function CategoriesContainer({
     const end = start + 5;
     filteredOrders = ordersArray.slice(start, end);
   }
-
 
   return (
     <div className="flex flex-col space-y-4 mt-3 w-full mb-3 md:items-center">

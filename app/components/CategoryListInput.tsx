@@ -1,21 +1,39 @@
 "use client";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-export default function CategoryInput() {
+export default function CategoryListInput({ categoria }: { categoria?: any }) {
   const [category, setCategory] = useState("");
   const supabase = createClientComponentClient();
 
+  useEffect(() => {
+    if (categoria) {
+      setCategory(categoria.category);
+    }
+  }, [categoria]);
+
   const saveCategory = async () => {
-    const { data, error } = await supabase
-      .from("categories")
-      .insert([{ category: category, active: true }]);
+    if (category === "") {
+      return;
+    }
+
+    if (categoria) {
+      const { data, error } = await supabase
+        .from("categories")
+        .update({ category: category })
+        .eq("id", categoria.id);
+    } else {
+      const { data, error } = await supabase
+        .from("categories")
+        .insert([{ category: category, active: true }]);
+    }
+
     window.location.reload();
   };
 
   return (
-    <div className="absolute left-0 bottom-20">
-      <div className="bg-gray-200 border border-gray-300 rounded-lg p-2">
+    <div>
+      <div className="bg-gray-200 flex border border-gray-300 rounded-lg p-2">
         <input
           type="text"
           placeholder="Ingrese categoria"

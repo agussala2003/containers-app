@@ -38,21 +38,24 @@ export default async function ProductsContainer({
     return redirect("/login");
   }
 
-  const { data: business } = await supabase.from("business").select("*").eq("user_id", user.id);
+  const { data: business } = await supabase
+    .from("business")
+    .select("*")
+    .eq("user_id", user.id);
 
   const { data: categories } = await supabase
     .from("categories")
     .select("*")
     .eq("active", true);
 
-    let productsQuery: any;
+  let productsQuery: any;
 
-    if (business) {
-      productsQuery = supabase
-        .from("products")
-        .select("*")
-        .eq("business_id", business[0].id);
-    }
+  if (business) {
+    productsQuery = supabase
+      .from("products")
+      .select("*")
+      .eq("business_id", business[0].id);
+  }
 
   if (isDeletedProducts) {
     productsQuery = productsQuery.eq("active", false);
@@ -113,27 +116,31 @@ export default async function ProductsContainer({
       <div className="w-5/6 mx-auto mt-4 flex flex-row justify-between items-center ">
         <Link href={`/gestion`}>
           <div className="flex flex-row justify-center gap-2">
-            <IoArrowBack size={24} /><p>Volver</p>
+            <IoArrowBack size={24} />
+            <p>Volver</p>
           </div>
         </Link>
-          <Link href={`/gestion/products/new`}  className="text-white font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2 bg-[#1A72DD] hover:bg-[#1a72ddce] focus:ring-[#1a72ddb8]">Agregar producto</Link>
+        <Link
+          href={`/gestion/products/new`}
+          className="text-white font-medium rounded-md text-sm px-5 py-2.5 text-center me-2 mb-2 bg-[#1A72DD] hover:bg-[#1a72ddce] focus:ring-[#1a72ddb8]"
+        >
+          Agregar producto
+        </Link>
       </div>
       <div className="w-5/6 m-auto h-auto my-5 shadow flex flex-row flex-wrap text-center border">
-      <Search placeholder="Buscar productos" />
+        <Search placeholder="Buscar productos" />
         {categories && <CategoryFilter categories={categories} />}
         <Ordering />
       </div>
-      {filteredProducts.length > 0 ? 
-      <>
-        <ProductTable products={filteredProducts} />
-      </>
-      :
-      <div className="w-full my-10 flex flex-col justify-center items-center ">
-
-        <EmptyMessage />
-     
-      </div>
-      } 
+      {filteredProducts.length > 0 ? (
+        <>
+          <ProductTable products={filteredProducts} />
+        </>
+      ) : (
+        <div className="w-full my-10 flex flex-col justify-center items-center ">
+          <EmptyMessage />
+        </div>
+      )}
       <div className="w-5/6 mx-auto my-3 flex justify-between items-center">
         <DeletedFilter />
         {products && <Pagination items={productsArray} />}

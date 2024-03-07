@@ -7,7 +7,8 @@ import { Product } from "@/utils/models/Product";
 import { z } from "zod";
 import CategoryInput from "./CategoryInput";
 import { CiCirclePlus } from "react-icons/ci";
-import Swal from 'sweetalert2'
+import Link from "next/link";
+import { IoArrowBack } from "react-icons/io5";
 
 export default function FormProductEdit() {
   const [productName, setProductName] = useState("");
@@ -21,8 +22,7 @@ export default function FormProductEdit() {
   const pathname = usePathname();
   const productId = pathname.split("/").pop();
 
-  const Swal = require('sweetalert2')
-
+  const Swal = require("sweetalert2");
 
   const fetchProduct = async () => {
     const { data: product, error } = await supabase
@@ -62,65 +62,75 @@ export default function FormProductEdit() {
     event.preventDefault();
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: "border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline",
-        cancelButton: "border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+        confirmButton:
+          "border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline",
+        cancelButton:
+          "border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline",
       },
-      buttonsStyling: false
+      buttonsStyling: false,
     });
-    swalWithBootstrapButtons.fire({
-      title: "¿Estás seguro?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Actualizar producto",
-      cancelButtonText: "Cancelar",
-      reverseButtons: true
-    }).then(async (result:any) => {
-      if (result.isConfirmed) {
-  
+    swalWithBootstrapButtons
+      .fire({
+        title: "¿Estás seguro?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Actualizar producto",
+        cancelButtonText: "Cancelar",
+        reverseButtons: true,
+      })
+      .then(async (result: any) => {
+        if (result.isConfirmed) {
+          const product: Product = {
+            product_name: productName,
+            description,
+            price: parseFloat(price),
+            category_id: category,
+            image: imageUrl,
+            active: true,
+            business_id: 1,
+          };
+          const productSchema = z.object({
+            product_name: z.string(),
+            description: z.string(),
+            price: z.number(),
+            category_id: z.number(),
+            image: z.string(),
+            active: z.boolean(),
+            business_id: z.number(),
+          });
+          try {
+            productSchema.parse(product);
+            const { error } = await supabase
+              .from("products")
+              .update(product)
+              .eq("id", productId);
 
-        const product: Product = {
-          product_name: productName,
-          description,
-          price: parseFloat(price),
-          category_id: category,
-          image: imageUrl,
-          active: true,
-          business_id: 1,
-        };
-        const productSchema = z.object({
-          product_name: z.string(),
-          description: z.string(),
-          price: z.number(),
-          category_id: z.number(),
-          image: z.string(),
-          active: z.boolean(),
-          business_id: z.number(),
-        });
-        try {
-          productSchema.parse(product);
-          const { error } = await supabase
-            .from("products")
-            .update(product)
-            .eq("id", productId);
-          if (error) console.log("error", error);
-        } catch (error) {
-          console.log("error", error);
+            Swal.fire({
+              title: "Producto actualizado",
+              icon: "success",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            if (error) console.log("error", error);
+          } catch (error) {
+            console.log("error", error);
+          }
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
         }
-      } 
-      else if (
-        /* Read more about handling dismissals below */
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-
-      }
-    });   
-
-
-
+      });
   };
 
   return (
     <div className="container mx-auto p-4 text-black">
+      <Link href={`/gestion/products`}>
+        <div className="flex flex-row justify-start gap-2 mb-3">
+          <IoArrowBack size={24} />
+          <p>Volver</p>
+        </div>
+      </Link>
       <h1 className="text-2xl font-bold mb-4 sm:text-center">
         Edición de producto
       </h1>
@@ -215,7 +225,10 @@ export default function FormProductEdit() {
         <div className=" flex justify-center sm:justify-start">
           <button
             type="submit"
-            className="w-full my-4 text-white font-medium rounded-md text-sm  py-2.5 text-center  bg-green-600 hover:bg-green-700 focus:ring-green-800 sm:w-36"
+            disabled={
+              !productName || !description || !price || !category || !imageUrl
+            }
+            className="w-full my-4 text-white font-medium rounded-md text-sm  py-2.5 text-center  bg-green-600 hover:bg-green-700 focus:ring-green-800 sm:w-36 disabled:opacity-50 disabled:cursor-not-allowed transition duration-500 ease select-none focus:outline-none focus:shadow-outline"
           >
             Actualizar
           </button>

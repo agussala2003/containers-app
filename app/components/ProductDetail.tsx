@@ -70,18 +70,22 @@ export default function ProductDetail() {
             <p className="text-2xl font-bold text-gray-800 mb-2">
               {product?.product_name}
             </p>
-      
+
             <div className="flex mb-4 flex-col ml-1 gap-4">
               <div className="flex items-start ml-1">
                 <div className="flex justify-center items-center">
-                  <TbDiscountCheckFilled color="#1A72DD" size={16} className="mt-1" />
+                  <TbDiscountCheckFilled
+                    color="#1A72DD"
+                    size={16}
+                    className="mt-1"
+                  />
                 </div>
-                <span className="font-bold text-gray-700">Descripción:  
-                <span className="font-normal ml-1 text-gray-600">
-                  {product?.description}
+                <span className="font-bold text-gray-700">
+                  Descripción:
+                  <span className="font-normal ml-1 text-gray-600">
+                    {product?.description}
+                  </span>
                 </span>
-                </span>
-               
               </div>
               <div className="flex ml-1">
                 <div className="flex justify-center items-center">
@@ -100,34 +104,36 @@ export default function ProductDetail() {
                 </span>
                 <span className="ml-1 text-gray-600">{product?.bought}</span>
               </div>
-            <div className="flex ml-1">
-              <div className="flex justify-center items-center">
-                <TbDiscountCheckFilled color="#1A72DD" />
+              <div className="flex ml-1">
+                <div className="flex justify-center items-center">
+                  <TbDiscountCheckFilled color="#1A72DD" />
+                </div>
+                <span className="font-bold text-gray-700">Categoría:</span>
+                <span className="ml-1 text-gray-600 text-md ">{category}</span>
               </div>
-              <span className="font-bold text-gray-700">Categoría:</span>
-              <span className="ml-1 text-gray-600 text-md ">{category}</span>
-            </div>
-            <div className="flex ml-1">
-              <div className="flex justify-center items-center">
-                <TbDiscountCheckFilled color="#1A72DD" />
+              <div className="flex ml-1">
+                <div className="flex justify-center items-center">
+                  <TbDiscountCheckFilled color="#1A72DD" />
+                </div>
+                <span className="font-bold text-gray-700">Estado:</span>
+                <span className="ml-1 text-gray-600 text-md ">
+                  {product?.active ? (
+                    <span className=" text-[#208e20] ">Activo</span>
+                  ) : (
+                    <span className="text-[#be2a2a]">Inactivo</span>
+                  )}
+                </span>
               </div>
-              <span className="font-bold text-gray-700">Estado:</span>
-              <span className="ml-1 text-gray-600 text-md ">{product?.active ? (
-                <span className=" text-[#208e20] ">
-                  Activo
-                </span>
-              ) : (
-                <span className="text-[#be2a2a]">
-                  Inactivo
-                </span>
-              )}</span>
-            </div>
             </div>
             <div className="flex justify-center items-center w-full">
-                <div className=" bg-[#1A72DD] flex justify-center rounded-xl items-center w-48">
-
-                <Link href={`/gestion/products/edit/${product?.id}`} className="p-1 text-white">Editar</Link>
-                </div>
+              <div className=" bg-[#1A72DD] flex justify-center rounded-xl items-center w-48">
+                <Link
+                  href={`/gestion/products/edit/${product?.id}`}
+                  className="p-1 text-white"
+                >
+                  Editar
+                </Link>
+              </div>
             </div>
           </div>
         </div>

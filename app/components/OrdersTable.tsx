@@ -11,7 +11,7 @@ export default function OrdersTable({ orders }: { orders: Order[] }) {
         <table className="table-auto w-full text-sm text-left rtl:text-right text-gray-500 bg-white shadow-md  border border-[#D1D1D1]">
           <thead className="text-xs text-black uppercase bg-white ">
             <tr className="border border-x-0 border-t-0 border-b-[#D1D1D1]">
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-6 py-3 text-nowrap ">
                 Numero de orden
               </th>
               <th scope="col" className="px-6 py-3">
@@ -43,7 +43,7 @@ export default function OrdersTable({ orders }: { orders: Order[] }) {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex justify-start ">
-                    <p className="text-sm font-semibold">
+                    <p className="text-sm text-nowrap font-semibold">
                       {orders.created_at?.slice(0, 10)}
                     </p>
                   </div>

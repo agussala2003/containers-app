@@ -73,13 +73,12 @@ export default function ProductDetail() {
   return (
     <div className="bg-white p-4">
       <div className="w-5/6 flex justify-start mx-auto">
-
-      <Link href={`/gestion/orders`}>
-        <div className="flex flex-row justify-center gap-2">
-          <IoArrowBack size={24} />
-          <p>Volver</p>
-        </div>
-      </Link>
+        <Link href={`/gestion/orders`}>
+          <div className="flex flex-row justify-center gap-2">
+            <IoArrowBack size={24} />
+            <p>Volver</p>
+          </div>
+        </Link>
       </div>
       <div className="flex w-5/6 m-auto gap-3 my-4 py-1 px-2">
         <div className="text-black font-medium">
@@ -138,7 +137,7 @@ export default function ProductDetail() {
                     </div>
                   </td>
                   <td className=" px-6 py-4">
-                  <p>${item.price.toFixed(2)}</p>
+                    <p>${item.price.toFixed(2)}</p>
                   </td>
                   <td className="text-center px-6 py-4">
                     <p className="">{item.quantity}</p>
@@ -152,12 +151,12 @@ export default function ProductDetail() {
         </table>
       </div>
 
-      
-        <div className="w-5/6 mx-auto flex justify-between mt-6 border py-2 px-2 shadow-md">
-          <p className="text-lg font-medium">Total:</p>
-          <p className="text-lg font-medium text-green-600">${total().toFixed(2)}</p>
-        </div>
-    
+      <div className="w-5/6 mx-auto flex justify-between mt-6 border py-2 px-2 shadow-md">
+        <p className="text-lg font-medium">Total:</p>
+        <p className="text-lg font-medium text-green-600">
+          ${total().toFixed(2)}
+        </p>
+      </div>
     </div>
   );
 }

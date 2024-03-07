@@ -18,13 +18,11 @@ export default async function AuthButton() {
   };
 
   return user ? (
-   
-      <form action={signOut} className="flex justify-center mt-5">
-        <button className="w-full flex justify-center border border-[#FF0000] rounded-xl text-[#FF0000] py-2 px-4  hover:bg-[#ff000014] md:w-96">
-          Cerrar sesion
-        </button>
-      </form>
-  
+    <form action={signOut} className="flex justify-center mt-5">
+      <button className="w-full flex justify-center border border-[#FF0000] rounded-xl text-[#FF0000] py-2 px-4  hover:bg-[#ff000014] md:w-96">
+        Cerrar sesion
+      </button>
+    </form>
   ) : (
     <Link
       href="/login"
