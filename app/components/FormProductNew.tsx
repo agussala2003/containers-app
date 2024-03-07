@@ -9,6 +9,7 @@ import { Business } from '@/utils/models/Business';
 import { CiImageOn } from "react-icons/ci";
 import CategoryInput from './CategoryInput';
 import { CiCirclePlus } from "react-icons/ci";
+import Swal from 'sweetalert2'
 
 export default function FormProductNew () {
     const [productName, setProductName] = useState('');
@@ -22,6 +23,8 @@ export default function FormProductNew () {
     const [user, setUser] = useState<any>(null);
     const [business, setBusiness] = useState<Business[]>([]);
     const supabase = createClientComponentClient();
+
+    const Swal = require('sweetalert2')
 
     const fetchCategories = async () => {
         const { data: categories, error } = await supabase.from('categories').select('*').eq('active', true);
@@ -56,7 +59,23 @@ export default function FormProductNew () {
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        const product: Product = {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: "border border-green-500 bg-green-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-green-600 focus:outline-none focus:shadow-outline",
+              cancelButton: "border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
+            },
+            buttonsStyling: false
+          });
+          swalWithBootstrapButtons.fire({
+            title: "¿Estás seguro?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Agregar producto",
+            cancelButtonText: "Cancelar",
+            reverseButtons: true
+          }).then(async (result:any) => {
+            if (result.isConfirmed) {
+            const product: Product = {
             product_name: productName,
             description: description,
             price: parseFloat(price),
@@ -95,6 +114,14 @@ export default function FormProductNew () {
             //     console.error('Error inserting product:', error);
             // }
         }
+            } 
+            else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+      
+            }
+          });     
     };
 
     return (
@@ -112,6 +139,7 @@ export default function FormProductNew () {
                                         placeholder="Ingresa nombre del producto"
                                         value={productName}
                                         onChange={(event) => setProductName(event.target.value)}
+                                        required
                                     />
                                 </div>
                                 <div className="flex flex-col">
@@ -123,6 +151,7 @@ export default function FormProductNew () {
                                             placeholder="Ingresa descripción"
                                             value={description}
                                             onChange={(event) => setDescription(event.target.value)}
+                                            required
                                         />
                                 </div>
                                 <div className="flex flex-col">
@@ -134,6 +163,7 @@ export default function FormProductNew () {
                                             placeholder="Ingresa precio"
                                             value={price}
                                             onChange={(event) => setPrice(event.target.value)}
+                                            required
                                         />
                                 </div>
                                 <div className="flex flex-col relative">
@@ -146,6 +176,7 @@ export default function FormProductNew () {
                                             className="outline-none	 border border-gray-300 bg-[#F4F4F4] rounded-xl px-3 py-2 w-full h-12 sm:w-[460px]"
                                             value={category}
                                             onChange={(event) => setCategory(parseInt(event.target.value))}
+                                            required
                                         >
                                             <option value="">Selecciona una categoría</option>
                                             {categories.map((category) => (
@@ -173,6 +204,7 @@ export default function FormProductNew () {
                                             placeholder="Ingresa URL de la imagen del producto"
                                             value={imageUrl}
                                             onChange={(event) => setImageUrl(event.target.value)}
+                                            required
                                         />
                                 </div>
                                     </div>

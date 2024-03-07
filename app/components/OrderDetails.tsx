@@ -10,11 +10,16 @@ import { RxCross2 } from "react-icons/rx";
 import { FaCartShopping } from "react-icons/fa6";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
+
+
+
 export default function OrderDetails({
   addedId,
 }: {
   addedId: string | undefined;
 }) {
+ 
+
   const supabase = createClientComponentClient();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -119,7 +124,10 @@ export default function OrderDetails({
 
   const confirmOrder = () => {
     setShowFinisher(true);
+
   };
+
+
 
   const printOrder = async () => {
     try {
@@ -283,11 +291,13 @@ export default function OrderDetails({
 
   return (
     <>
+    
       {!showCart ? (
         <button
           onClick={() => setShowCart(true)}
           className="w-fit m-auto fixed inset-x-0 bottom-3 flex justify-center items-center gap-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 focus:outline-none"
         >
+          
           <FaCartShopping color="white" /> Productos ({cart.length}) - $
           {calculateTotal().toFixed(2)}
         </button>

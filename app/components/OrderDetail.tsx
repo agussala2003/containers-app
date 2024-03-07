@@ -86,7 +86,7 @@ export default function ProductDetail() {
           <p className="underline">Detalle de orden:</p>
         </div>
         <div className="text-black font-semibold">
-          <p>{orderId}</p>
+          <p>#{orderId}</p>
         </div>
       </div>
 
